@@ -1,4 +1,4 @@
 # intro-CS-Python
-## This session will logs all my pratice about Python-introduction to CS and Programing
+### This session will record all my practice on Python-intro to CS and Programming
 
-### Day 1:
+##### Day 1:
