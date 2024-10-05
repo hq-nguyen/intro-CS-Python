@@ -127,5 +127,5 @@ def put_in_functions_c():
 
 
 put_in_functions_a()
-put_in_functions_b()
-put_in_functions_c()
+# put_in_functions_b()
+# put_in_functions_c()
