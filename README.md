@@ -17,7 +17,7 @@ Here’s a list of the problem sets and their topics:
 Each problem set folder contains:
 
 - Problem Description (`psX.pdf` where X is the problem set number)
-- My Python Solution (`psetX_solution.py`)
+- My Python Solution (`psX_solution.py`)
 
 ### Course Link
 Check out the full course materials and video lectures on [MIT OpenCourseWare](https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/lists/problem-sets/).
