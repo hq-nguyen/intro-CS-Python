@@ -8,14 +8,14 @@
 ##################################################################################
 yearly_salary = float(input("Enter your yearly salary: "))
 portion_saved = float(input("Enter the percent of your salary to save, as a decimal: "))
-cost_of_dream_home = float(input("Enter the cost of your dream home: "))
+total_cost = float(input("Enter the cost of your dream home: "))
 
 #########################################################################
 ## Initialize other variables you need (if any) for your program below ##
 #########################################################################
-portion_down_payment = 0.25 * cost_of_dream_home
+portion_down_payment = 0.25 * total_cost
 current_savings = 0
-r = 0.04  # 4% annual return
+r = 0.05 # annual rate
 monthly_salary = yearly_salary / 12
 months = 0
 ###############################################################################################

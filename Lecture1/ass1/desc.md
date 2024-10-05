@@ -4,8 +4,8 @@
 - Exploring bisection search
 
 ## Part A: Saving for a House
-Your goal is to find the number of months it takes to save up for a down payment. The cost of your down payment is calculated by multiplying the total cost of your dream house by the down payment percentage.
+## Part B: Saving with a raise
+## Part C: Choosing an Interest Rate
 
-![alt](./images/ps1a.png)
 
 
