@@ -6,6 +6,3 @@
 ## Part A: Saving for a House
 ## Part B: Saving with a raise
 ## Part C: Choosing an Interest Rate
-
-
-
