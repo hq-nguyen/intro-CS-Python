@@ -38,7 +38,7 @@ def text_to_list(input_text):
     Returns:
         list representation of input_text, where each word is a different element in the list
     """
-    pass
+    return input_text.split()
 
 
 ### Problem 1: Get Frequency ###
@@ -53,7 +53,13 @@ def get_frequencies(input_iterable):
     Note: 
         You can assume that the only kinds of white space in the text documents we provide will be new lines or space(s) between words (i.e. there are no tabs)
     """
-    pass
+    freq_dict = {}
+    for item in input_iterable:
+        if item in freq_dict:
+            freq_dict[item] += 1
+        else:
+            freq_dict[item] = 1
+    return freq_dict
 
 
 ### Problem 2: Letter Frequencies ###
@@ -66,7 +72,13 @@ def get_letter_frequencies(word):
         is a letter in word and the corresponding int
         is the frequency of the letter in word
     """
-    pass
+    freq_dict = {}
+    for letter in word:
+        if letter in freq_dict:
+            freq_dict[letter] += 1
+        else:
+            freq_dict[letter] = 1
+    return freq_dict
 
 
 ### Problem 3: Similarity ###
@@ -94,8 +106,20 @@ def calculate_similarity_score(freq_dict1, freq_dict2):
          all frequencies in both dict1 and dict2.
         Return 1-(DIFF/ALL) rounded to 2 decimal places
     """
-    pass
 
+    diff = 0
+    all_freq = 0
+    for key in freq_dict1:
+        if key in freq_dict2:
+            diff += abs(freq_dict1[key] - freq_dict2[key])
+        else:
+            diff += freq_dict1[key]
+        all_freq += freq_dict1[key]
+    for key in freq_dict2:
+        if key not in freq_dict1:
+            diff += freq_dict2[key]
+        all_freq += freq_dict2[key]
+    return round(1 - (diff / all_freq), 2)
 
 ### Problem 4: Most Frequent Word(s) ###
 def get_most_frequent_words(freq_dict1, freq_dict2):
@@ -118,7 +142,27 @@ def get_most_frequent_words(freq_dict1, freq_dict2):
     If multiple words are tied (i.e. share the same highest frequency),
     return an alphabetically ordered list of all these words.
     """
-    pass
+    most_frequent = []
+    max_freq = 0
+    for key in freq_dict1:
+        if key in freq_dict2:
+            freq = freq_dict1[key] + freq_dict2[key]
+        else:
+            freq = freq_dict1[key]
+        if freq > max_freq:
+            most_frequent = [key]
+            max_freq = freq
+        elif freq == max_freq:
+            most_frequent.append(key)
+    for key in freq_dict2:
+        if key not in freq_dict1:
+            freq = freq_dict2[key]
+            if freq > max_freq:
+                most_frequent = [key]
+                max_freq = freq
+            elif freq == max_freq:
+                most_frequent.append(key)
+    return sorted(most_frequent)
 
 
 ### Problem 5: Finding TF-IDF ###
@@ -133,7 +177,13 @@ def get_tf(file_path):
         in the document) / (total number of words in the document)
     * Think about how we can use get_frequencies from earlier
     """
-    pass
+    text = load_file(file_path)
+    words = text_to_list(text)
+    frequencies = get_frequencies(words)
+    total_words = len(words)
+    tf_dict = {word: freq / total_words for word, freq in frequencies.items()}
+    return tf_dict
+    
 
 def get_idf(file_paths):
     """
@@ -147,7 +197,20 @@ def get_idf(file_paths):
     with math.log10()
 
     """
-    pass
+    total_docs = len(file_paths)
+    idf_dict = {}
+    for file_path in file_paths:
+        text = load_file(file_path)
+        words = text_to_list(text)
+        frequencies = get_frequencies(words)
+        for word in frequencies:
+            if word in idf_dict:
+                idf_dict[word] += 1
+            else:
+                idf_dict[word] = 1
+    for word in idf_dict:
+        idf_dict[word] = math.log10(total_docs / idf_dict[word])
+    return idf_dict
 
 def get_tfidf(tf_file_path, idf_file_paths):
     """
@@ -162,7 +225,10 @@ def get_tfidf(tf_file_path, idf_file_paths):
 
         * TF-IDF(i) = TF(i) * IDF(i)
         """
-    pass
+    tf = get_tf(tf_file_path)
+    idf = get_idf(idf_file_paths)
+    tf_idf = [(word, tf[word] * idf[word]) for word in tf if word in idf]
+    return sorted(tf_idf, key=lambda x: (x[1], x[0]))
 
 
 if __name__ == "__main__":
@@ -172,14 +238,14 @@ if __name__ == "__main__":
     ###############################################################
 
     ## Tests Problem 0: Prep Data
-    # test_directory = "tests/student_tests/"
+    # test_directory = "./Lecture3/tests/student_tests/"
     # hello_world, hello_friend = load_file(test_directory + 'hello_world.txt'), load_file(test_directory + 'hello_friends.txt')
     # world, friend = text_to_list(hello_world), text_to_list(hello_friend)
     # print(world)      # should print ['hello', 'world', 'hello']
     # print(friend)     # should print ['hello', 'friends']
 
     ## Tests Problem 1: Get Frequencies
-    # test_directory = "tests/student_tests/"
+    # test_directory = "./Lecture3/tests/student_tests/"
     # hello_world, hello_friend = load_file(test_directory + 'hello_world.txt'), load_file(test_directory + 'hello_friends.txt')
     # world, friend = text_to_list(hello_world), text_to_list(hello_friend)
     # world_word_freq = get_frequencies(world)
@@ -194,7 +260,7 @@ if __name__ == "__main__":
     # print(freq2)      #  should print {'t': 2, 'h': 1, 'a': 1}
 
     ## Tests Problem 3: Similarity
-    # test_directory = "tests/student_tests/"
+    # test_directory = "./Lecture3/tests/student_tests/"
     # hello_world, hello_friend = load_file(test_directory + 'hello_world.txt'), load_file(test_directory + 'hello_friends.txt')
     # world, friend = text_to_list(hello_world), text_to_list(hello_friend)
     # world_word_freq = get_frequencies(world)
@@ -217,8 +283,8 @@ if __name__ == "__main__":
     # print(most_frequent)      # should print ["hello", "world"]
 
     ## Tests Problem 5: Find TF-IDF
-    # tf_text_file = 'tests/student_tests/hello_world.txt'
-    # idf_text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
+    # tf_text_file = './Lecture3/tests/student_tests/hello_world.txt'
+    # idf_text_files = ['./Lecture3/tests/student_tests/hello_world.txt', './Lecture3/tests/student_tests/hello_friends.txt']
     # tf = get_tf(tf_text_file)
     # idf = get_idf(idf_text_files)
     # tf_idf = get_tfidf(tf_text_file, idf_text_files)

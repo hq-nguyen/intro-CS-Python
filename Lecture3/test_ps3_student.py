@@ -201,12 +201,12 @@ def absolute_file_paths(directory):
 class TestPrepData(unittest.TestCase):
     def test_prep_hello_world(self):
         expected = ["hello", "world", "hello"]
-        result = ds.text_to_list(load_text("tests/student_tests/hello_world.txt"))
+        result = ds.text_to_list(load_text("./Lecture3/tests/student_tests/hello_world.txt"))
         self.assertEqual(result, expected)
 
     def test_prep_1a(self):
         expected = a1
-        result = ds.text_to_list(load_text("tests/student_tests/test1a.txt"))
+        result = ds.text_to_list(load_text("./Lecture3/tests/student_tests/test1a.txt"))
         self.assertEqual(result, expected)
 
     def test_prep_all_whitespace(self):
@@ -237,21 +237,21 @@ class TestWordFrequency(unittest.TestCase):
         self.assertDictEqual(result, expected)
 
     def test_frequency_hello_world(self):
-         text = load_text("tests/student_tests/hello_world.txt")
+         text = load_text("./Lecture3/tests/student_tests/hello_world.txt")
          data = ["hello", "world", "hello"]
          result = ds.get_frequencies(data)
          expected = {"hello":2, "world":1}
          self.assertDictEqual(result, expected)
 
     def test_frequency_1a(self):
-         text = load_text("tests/student_tests/test1a.txt")
+         text = load_text("./Lecture3/tests/student_tests/test1a.txt")
          data = a1
          result = ds.get_frequencies(data)
          expected = a1_freq
          self.assertDictEqual(result, expected)
 
     def test_frequency_1b(self):
-         text = load_text("tests/student_tests/test1b.txt")
+         text = load_text("./Lecture3/tests/student_tests/test1b.txt")
          data = b1
          result = ds.get_frequencies(data)
          expected = b1_freq
@@ -373,39 +373,39 @@ class TestTFIDF(unittest.TestCase):
             self.assertAlmostEqual(a[1], b[1], places=places)
 
     def test_tf1(self):
-        text_file = "tests/student_tests/hello_world.txt"
+        text_file = "./Lecture3/tests/student_tests/hello_world.txt"
         result = ds.get_tf(text_file)
         expected = {'hello': 0.6666666666666666, 'world': 0.3333333333333333}
         self.assertDictAlmostEqual(result, expected)
 
     def test_tf2(self):
-        text_file = "tests/student_tests/test1a.txt"
+        text_file = "./Lecture3/tests/student_tests/test1a.txt"
         result = ds.get_tf(text_file)
         expected = tf2_dict
         self.assertDictAlmostEqual(result, expected)
 
     def test_idf1(self):
-        text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
+        text_files = ['./Lecture3/tests/student_tests/hello_world.txt', './Lecture3/tests/student_tests/hello_friends.txt']
         result = ds.get_idf(text_files)
         expected = {'hello': 0.0, 'world': 0.3010299956639812, 'friends': 0.3010299956639812}
         self.assertDictAlmostEqual(result, expected)
 
     def test_idf2(self):
-        text_files = ['tests/student_tests/test1a.txt', 'tests/student_tests/test1b.txt']
+        text_files = ['./Lecture3/tests/student_tests/test1a.txt', './Lecture3/tests/student_tests/test1b.txt']
         result = ds.get_idf(text_files)
         expected = idf2_dict
         self.assertDictAlmostEqual(result, expected)
 
     def test_tfidf_small(self):
-        text_file = 'tests/student_tests/hello_world.txt'
-        text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
+        text_file = './Lecture3/tests/student_tests/hello_world.txt'
+        text_files = ['./Lecture3/tests/student_tests/hello_world.txt', './Lecture3/tests/student_tests/hello_friends.txt']
         result = ds.get_tfidf(text_file, text_files)
         expected = [('hello', 0.0), ('world', 0.10034333188799373)]
         self.assertListAlmostEqual(result, expected)
 
     def test_tfidf_big(self):
-        text_file = 'tests/student_tests/test1a.txt'
-        text_files = ['tests/student_tests/test1a.txt', 'tests/student_tests/test1b.txt', 'tests/student_tests/test2a.txt', 'tests/student_tests/test2b.txt', 'tests/student_tests/test3a.txt']
+        text_file = './Lecture3/tests/student_tests/test1a.txt'
+        text_files = ['./Lecture3/tests/student_tests/test1a.txt', './Lecture3/tests/student_tests/test1b.txt', './Lecture3/tests/student_tests/test2a.txt', './Lecture3/tests/student_tests/test2b.txt', './Lecture3/tests/student_tests/test3a.txt']
         result = ds.get_tfidf(text_file, text_files)
         expected = tfidf_list
         self.assertListAlmostEqual(result, expected)
