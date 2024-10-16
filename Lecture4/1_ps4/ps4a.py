@@ -1,5 +1,5 @@
 # Problem Set 4A
-# Name:
+# Name: Quan H. Nguyen
 # Collaborators:
 
 from tree import Node # Imports the Node object used to construct trees
@@ -7,9 +7,9 @@ from tree import Node # Imports the Node object used to construct trees
 # Part A0: Data representation
 # Fill out the following variables correctly.
 # If correct, the test named test_data_representation should pass.
-tree1 = None #TODO
-tree2 = None #TODO
-tree3 = None #TODO
+tree1 = Node(1, Node(2), Node(3))
+tree2 = Node(10, Node(5), Node(15))
+tree3 = Node(20, Node(10, Node(5), Node(15)), Node(30, Node(25), Node(35)))
 
 def find_tree_height(tree):
     '''
@@ -20,7 +20,12 @@ def find_tree_height(tree):
         The integer depth of the tree
     '''
     # TODO: Remove pass and write your code here
-    pass
+    if tree is None:
+        return 0
+    else:
+        left_height = find_tree_height(tree.left)
+        right_height = find_tree_height(tree.right)
+        return max(left_height, right_height) + 1
 
 def is_heap(tree, compare_func):
     '''
@@ -34,7 +39,15 @@ def is_heap(tree, compare_func):
         True if the entire tree satisfies the compare_func function; False otherwise
     '''
     # TODO: Remove pass and write your code here
-    pass
+    if tree is None:
+        return True
+    else:
+        if tree.left is not None and not compare_func(tree.left.value, tree.value):
+            return False
+        if tree.right is not None and not compare_func(tree.right.value, tree.value):
+            return False
+        return is_heap(tree.left, compare_func) and is_heap(tree.right, compare_func)
+    
 
 
 
