@@ -1,5 +1,5 @@
 # Problem Set 4A
-# Name: sommio
+# Name: Quan H. Nguyen
 # Collaborators:
 
 from tree import Node # Imports the Node object used to construct trees
