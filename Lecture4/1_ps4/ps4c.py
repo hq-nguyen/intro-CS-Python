@@ -1,5 +1,5 @@
 # Problem Set 4C
-# Name:
+# Name: Quan H. Nguyen
 # Collaborators:
 
 import json
@@ -60,7 +60,7 @@ def get_story_pads():
         return json.load(json_file)
 
 
-WORDLIST_FILENAME = 'words.txt'
+WORDLIST_FILENAME = './Lecture4/1_ps4/words.txt'
 ### END HELPER CODE ###
 
 
@@ -80,7 +80,20 @@ def decrypt_message_try_pads(ciphertext, pads):
 
     Returns: (PlaintextMessage) A message with the decrypted ciphertext and the best pad
     '''
-    raise NotImplementedError  # delete this line and replace with your code here
+    word_list = load_words('./Lecture4/1_ps4/words.txt')
+    out = None
+    max_court = 0
+    for pad in pads:
+        message = ciphertext.decrypt_message(pad).get_text()
+        court = len([s for s in message.split() if is_word(word_list, s)])
+        if court >= max_court:
+            max_court = court
+            out = ps4b.PlaintextMessage(message, pad)
+    if out == None:
+        return ps4b.PlaintextMessage(message, pad)
+    return out
+
+
 
 
 def decode_story():
@@ -91,12 +104,12 @@ def decode_story():
     Returns: (string) the decoded story
 
     '''
-    raise NotImplementedError  # delete this line and replace with your code here
+    encrypted_story = ps4b.EncryptedMessage(get_story_string())
+    return decrypt_message_try_pads(encrypted_story, get_story_pads()).get_text()
 
 
 
 if __name__ == '__main__':
     # # Uncomment these lines to try running decode_story()
-    # story = decode_story()
-    # print("Decoded story: ", story)
-    pass
+    story = decode_story()
+    print("Decoded story: ", story)
